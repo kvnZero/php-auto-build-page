@@ -13,6 +13,7 @@ if(empty(CURRENT_PAGE) || empty(CURRENT_POST)){
     if(!file_exists($include_file)){
         $html = '';  
         foreach (post_file_list() as $filename) {
+            if(empty($filename)) continue;
             $html .= '<li><a href="/?page=post&post='.$filename.'">'.$filename.'</a></li>';   
         }
         $buildFile = new BuildFile();
@@ -40,8 +41,9 @@ if(empty(CURRENT_PAGE) || empty(CURRENT_POST)){
     }
 }
 
-$buildPage = new BuildPage(); 
-$buildPage->setBuildClass($buildFile);
-$buildPage->build();
-
+if(!file_exists($include_file)){
+    $buildPage = new BuildPage(); 
+    $buildPage->setBuildClass($buildFile);
+    $buildPage->build();
+}
 include $include_file;
