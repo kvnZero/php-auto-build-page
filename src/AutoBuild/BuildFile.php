@@ -31,6 +31,8 @@ class BuildFile
         $this->getFileContent();
         $this->replaceFileContent();
         $this->outputToFile();
+
+        return $this->output_file;
     }
 
     private function loadFile()
@@ -53,7 +55,7 @@ class BuildFile
     {
         if(empty($this->search_key)) return;
 
-        array_walk($this->search_key, [$this, 'replaceKeyRule']);
+        $this->replaceKeyRule();
 
         $search_keys   = array_keys($this->search_key);
         $search_values = array_values($this->search_key);
@@ -68,7 +70,11 @@ class BuildFile
         fclose($new_file_fd);
     }
 
-    private function replaceKeyRule($item, &$key){
-        $key = sprintf("{{%s}}", $key);
+    private function replaceKeyRule(){
+        foreach ($this->search_key as $key => $value){
+            $new_key = sprintf("{{%s}}", $key);
+            $this->search_key[$new_key] = $value;
+            unset($this->search_key[$key]);
+        }
     }
 }

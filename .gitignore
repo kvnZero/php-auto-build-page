@@ -1,0 +1,4 @@
+/vendor
+/src/post
+/src/static
+composer.lock
