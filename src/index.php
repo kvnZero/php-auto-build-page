@@ -10,7 +10,7 @@ include BASE_DIR.'config/config.php';
 
 if(empty(CURRENT_PAGE) || empty(CURRENT_POST)){
     $include_file = OUTPUT_PATH.'index.php';
-    if(!file_exists($include_file)){
+    if(!file_exists($include_file) || DEBUG_ALLWAYS_BUILD){
         $list_html = '';  
         foreach (post_file_list() as $filename) {
             if(empty($filename)) continue;
@@ -24,18 +24,19 @@ if(empty(CURRENT_PAGE) || empty(CURRENT_POST)){
     }
 }else{
     $include_file = OUTPUT_PATH.CURRENT_POST.'.php';
-    if(!file_exists($include_file)){
+    if(!file_exists($include_file) || DEBUG_ALLWAYS_BUILD){
         $filename = POST_PATH.'/'.CURRENT_POST.'.md';
         if(!file_exists($filename)){
             die("post not found");
         }
         $file_fd = fopen($filename , "r") or die('Unable to open file');
         $content = fread($file_fd, filesize($filename));
+        $search_keys = find_post_head_and_clear($content);
         $parsedown = new Parsedown();
         $content = $parsedown->text($content); 
 
         $template_file = TEMPLATE_PATH.'_post.php';
-        $search_keys   = [
+        $search_keys   += [
             'content'=>$content
         ];
     }

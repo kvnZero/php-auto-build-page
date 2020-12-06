@@ -39,9 +39,9 @@
     </nav>
     <div class="container marketing">
         <div class="row">
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-6 offset-md-3" style="margin-left: 0px; flex: unset; max-width: unset;">
                 <div style="margin-top:30px"></div>
-                <h2 class="text-center">Abigeater Home Page</h2>
+                <h2 class="text-center">{{post_title}}</h2>
                 <hr>
                     {{content}}
                 <hr>
