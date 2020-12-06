@@ -7,7 +7,7 @@ class BuildFile
 
     private $output_file;
 
-    private $search_key;
+    private $search_key = [];
 
     private $file_fd;
 
@@ -23,6 +23,10 @@ class BuildFile
 
     public function setSearchKey(array $keys_table = []) {
         $this->search_key = $keys_table;
+    }
+
+    public function addSearchKey(array $keys_table = []) {
+        $this->search_key += $keys_table;
     }
 
     public function build()
