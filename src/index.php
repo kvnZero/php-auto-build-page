@@ -23,7 +23,8 @@ if(empty(CURRENT_PAGE) || empty(CURRENT_POST)){
         ];
     }
 }else{
-    $include_file = OUTPUT_PATH.CURRENT_POST.'.php';
+    $post = POST_STATIC_FILE_MAD5 ? md5(CURRENT_POST): CURRENT_POST;
+    $include_file = OUTPUT_PATH.$post.'.php';
     if(!file_exists($include_file) || DEBUG_ALLWAYS_BUILD){
         $filename = POST_PATH.'/'.CURRENT_POST.'.md';
         if(!file_exists($filename)){

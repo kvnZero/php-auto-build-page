@@ -19,3 +19,5 @@ define('CURRENT_PAGE', param('page'));
 define('CURRENT_POST', param('post'));
 
 define('DEBUG_ALLWAYS_BUILD', false);
+
+define('POST_STATIC_FILE_MAD5', true);
