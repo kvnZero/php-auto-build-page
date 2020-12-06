@@ -17,3 +17,5 @@ define('CACHE_TIME', 60*60*24*3); // 3days
 define('CURRENT_PAGE', param('page'));
 
 define('CURRENT_POST', param('post'));
+
+define('DEBUG_ALLWAYS_BUILD', false);
