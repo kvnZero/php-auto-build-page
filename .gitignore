@@ -2,3 +2,4 @@
 /src/post
 /src/static
 composer.lock
+_cache.json
