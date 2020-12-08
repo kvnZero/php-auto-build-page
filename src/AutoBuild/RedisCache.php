@@ -24,7 +24,7 @@ class RedisCache extends BaseCache{
         self::get_instance()->hget(self::$cache_key, $post_tile);
     }
 
-    public static function set_cache($post_title){
-        self::get_instance()->hSet(self::$cache_key, $post_title, self::get_cache_expires_time());
+    public static function set_cache($post_title, $value){
+        self::get_instance()->hSet(self::$cache_key, $post_title, $value);
     }
 }

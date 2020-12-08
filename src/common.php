@@ -56,3 +56,21 @@ function find_post_head_and_clear(&$content){
     $content = join(PHP_EOL, $content_all);
     return $search_key;
 }
+
+function get_cache_system(){
+    switch (CACHE_SYSTEM) {
+        case 'Redis':
+            return 'RedisCache';
+            break;
+        case 'File':
+        default:
+            return 'FileCache';
+            break;
+    }
+}
+
+function file_can_build_with_cache($filename){
+    $cache_system = get_cache_system();
+    return (!file_exists($filename) || $cache_system::is_expires($filename) || DEBUG_ALLWAYS_BUILD);
+    //判断文件是否存在 或者文件缓存是否过期 判断是否需要总是生成页面
+}

@@ -8,9 +8,9 @@ define('BASE_DIR', __DIR__.'/');
 include BASE_DIR.'common.php';
 include BASE_DIR.'config/config.php';
 
-if(empty(CURRENT_PAGE) || empty(CURRENT_POST)){
+if (empty(CURRENT_PAGE) || empty(CURRENT_POST)) {
     $include_file = OUTPUT_PATH.'index.php';
-    if(!file_exists($include_file) || DEBUG_ALLWAYS_BUILD){
+    if (file_can_build_with_cache($include_file)) {
         $list_html = '';  
         foreach (post_file_list() as $filename) {
             if(empty($filename)) continue;
@@ -22,16 +22,17 @@ if(empty(CURRENT_PAGE) || empty(CURRENT_POST)){
             'list'=>$list_html
         ];
     }
-}else{
+} else {
     $post = POST_STATIC_FILE_MAD5 ? md5(CURRENT_POST): CURRENT_POST;
     $include_file = OUTPUT_PATH.$post.'.php';
-    if(!file_exists($include_file) || DEBUG_ALLWAYS_BUILD){
+    if (file_can_build_with_cache($include_file)) {
         $filename = POST_PATH.'/'.CURRENT_POST.'.md';
         if(!file_exists($filename)){
             die("post not found");
         }
         $file_fd = fopen($filename , "r") or die('Unable to open file');
         $content = fread($file_fd, filesize($filename));
+        fclose($file_fd);
         $search_keys = find_post_head_and_clear($content);
         $parsedown = new Parsedown();
         $content = $parsedown->text($content); 
