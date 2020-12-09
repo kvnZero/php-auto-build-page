@@ -5,8 +5,9 @@ use AutoBuild\BuildPage;
 
 define('BASE_DIR', __DIR__.'/');
 
-include BASE_DIR.'common.php';
 include BASE_DIR.'config/config.php';
+include BASE_DIR.'common.php';
+include BASE_DIR.'hook.php';
 
 if (empty(CURRENT_PAGE) || empty(CURRENT_POST)) {
     $include_file = OUTPUT_PATH.'index.php';

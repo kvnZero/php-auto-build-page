@@ -13,6 +13,8 @@ class BuildFile
 
     private $file_content;
 
+    private static $common_search_key = [];
+
     public function setBaseFile($filename = '') {
         $this->base_file = $filename;
     }
@@ -29,10 +31,19 @@ class BuildFile
         $this->search_key += $keys_table;
     }
 
+    public static function register_common_search_key($key, $callback) {
+        self::$common_search_key[$key] = $callback;
+    }
+
+    public static function unregister_common_search_key($key) {
+        unset(self::$common_search_key[$key]);
+    }
+    
     public function build()
     {
         $this->loadFile();
         $this->getFileContent();
+        $this->replaceFileCommonContent();
         $this->replaceFileContent();
         $this->outputToFile();
 
@@ -53,6 +64,24 @@ class BuildFile
         $this->file_content = fread($this->file_fd, filesize($this->base_file));
         fclose($this->file_fd);
         unset($this->file_fd);
+    }
+
+    /**
+     * 用于提取常用的search_key并通过回调方法去执行替换操作
+     */
+    private function replaceFileCommonContent()
+    {
+        $rule = "/{% ?(?<key>[a-z_]+ .+?) ?%}/";
+        preg_match_all($rule, $this->file_content, $matches);
+        if($matches){
+            for ($i=0; $i < count($matches[0]); $i++) { 
+                $arr = explode(' ', $matches['key'][$i]);
+                if(in_array($arr[0], array_keys(self::$common_search_key))){
+                    $key = $arr[0];
+                    self::$common_search_key[$key]($key, $matches[0][$i], $this->file_content, $arr[1]);
+                }
+            }
+        }
     }
 
     private function replaceFileContent()
