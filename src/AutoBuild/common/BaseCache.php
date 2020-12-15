@@ -12,8 +12,8 @@ abstract class BaseCache{
     }
 
     public static function is_expires($post_title){
-        $expires_time = self::get_cache_expires_time();
-        $create_time  = self::get_cache($post_title);
+        $expires_time = static::get_cache_expires_time();
+        $create_time  = static::get_cache($post_title);
         return ($create_time + $expires_time) < time();
     }
 }

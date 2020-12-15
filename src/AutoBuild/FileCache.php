@@ -7,18 +7,18 @@ class FileCache extends BaseCache{
 
     private function __construct(){}
 
-    private static $json;
+    private static $json = [];
 
     private static $cache_file = APP_PATH.'_cache.json';
 
     private static function get_cache_file(){
-        if(is_null(self::$json)){
+        if(empty(self::$json)){
             if(file_exists(self::$cache_file)){
                 $file_fd = fopen(self::$cache_file , "r");
                 self::$json = json_decode(fread($file_fd, filesize(self::$cache_file)), true);
                 fclose($file_fd);
             }else{
-                self::$json = '';
+                self::$json = [];
                 self::save_cache_file();
             }
         }
@@ -31,12 +31,14 @@ class FileCache extends BaseCache{
         fclose($file_fd);
     }
 
-    public static function get_cache($post_tile){
+    public static function get_cache($post_title){
         self::get_cache_file();
-        return self::$json[$post_tile];
+        $post_title = basename($post_title,".php");
+        return self::$json[$post_title] ?? 0;
     }
 
     public static function set_cache($post_title, $value){
+        $post_title = basename($post_title,".php");
         $value = $value ?: time();
         self::get_cache_file();
         self::$json[$post_title] = $value;

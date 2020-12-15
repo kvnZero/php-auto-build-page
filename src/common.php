@@ -1,4 +1,7 @@
 <?php
+use AutoBuild\RedisCache;
+use AutoBuild\FileCache;
+
 function param($name){
     return htmlspecialchars($_REQUEST[$name]?? ''); 
 }
@@ -60,11 +63,11 @@ function find_post_head_and_clear(&$content){
 function get_cache_system(){
     switch (CACHE_SYSTEM) {
         case 'Redis':
-            return 'RedisCache';
+            return RedisCache::class;
             break;
         case 'File':
         default:
-            return 'FileCache';
+            return FileCache::class;
             break;
     }
 }
@@ -72,5 +75,11 @@ function get_cache_system(){
 function file_can_build_with_cache($filename){
     $cache_system = get_cache_system();
     return (!file_exists($filename) || $cache_system::is_expires($filename) || DEBUG_ALLWAYS_BUILD);
+    //判断文件是否存在 或者文件缓存是否过期 判断是否需要总是生成页面
+}
+
+function file_set_cache_now($filename){
+    $cache_system = get_cache_system();
+    return $cache_system::set_cache($filename, time());
     //判断文件是否存在 或者文件缓存是否过期 判断是否需要总是生成页面
 }

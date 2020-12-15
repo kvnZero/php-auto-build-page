@@ -5,9 +5,9 @@ use AutoBuild\BuildPage;
 
 define('BASE_DIR', __DIR__.'/');
 
-include BASE_DIR.'config/config.php';
 include BASE_DIR.'common.php';
 include BASE_DIR.'hook.php';
+include BASE_DIR.'config/config.php';
 
 if (empty(CURRENT_PAGE) || empty(CURRENT_POST)) {
     $include_file = OUTPUT_PATH.'index.php';
@@ -54,5 +54,6 @@ if(isset($template_file)){
     $buildPage = new BuildPage(); 
     $buildPage->setBuildClass($buildFile);
     $buildPage->build();
+    file_set_cache_now($include_file);
 }
 include $include_file;
