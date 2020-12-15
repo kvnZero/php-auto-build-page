@@ -47,8 +47,7 @@
                     {{content}}
                 <hr>
                 <ul>
-		    <li>Github：<a href="https://github.com/sohyunQVQ">SohyunQVQ</a></li>
-                    <li>Github Pages：<a href="https://blog.abigeater.com">Blog</a></li>
+		            <li>Github：<a href="https://github.com/sohyunQVQ">SohyunQVQ</a></li>
                 </ul>
                 <hr>
                 <div>
