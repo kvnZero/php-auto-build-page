@@ -5,7 +5,7 @@
   {%include _header.php%}
     <div class="container marketing">
         <div class="row">
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-6 offset-md-3" style="margin-left: 0px; flex: unset; max-width: unset;">
                 <div style="margin-top:30px"></div>
                 <h2 class="text-center">Abigeater Home Page</h2>
                 <hr>
@@ -14,6 +14,7 @@
                     {{list}}
                 </ul>
                 <hr>
+            </div>
         </div>
     </div>
     {%include _footer.php%}

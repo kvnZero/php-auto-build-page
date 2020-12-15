@@ -2,7 +2,7 @@
 use AutoBuild\BuildFile;
 
 BuildFile::register_common_search_key('include', 'RegisterKey::register');
-
+BuildFile::register_common_search_key('if', 'RegisterKey::register');
 class RegisterKey
 {
     public static function register($key, $replace_key, &$content, $value){
