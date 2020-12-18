@@ -22,10 +22,11 @@ class RegisterKey
     }
 
     public static function action_if($replace_key, &$content, $value){
-        $arr = explode(' ', $value);
-        $filter_str = "return {$arr[0]}";
+        $rule = "/(?<fliter>[a-z_= 1-9]+) then ?(?<value>.+)/";
+        preg_match($rule, "page == 1 then hello我", $matches);
+        $filter_str = "return {$matches['fliter']};";
         if(eval($filter_str)){
-            $content = str_replace($replace_key, $arr[2], $content);
+            $content = str_replace($replace_key, $matches['value'], $content);
         }
     }
 }
