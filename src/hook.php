@@ -25,9 +25,11 @@ class RegisterKey
         $rule = "/(?<fliter>.+) then ?(?<value>.+)/";
         preg_match($rule, $value, $matches);
         $filter_str = "return {$matches['fliter']};";
+        $value = '';
         if(eval($filter_str)){
-            $content = str_replace($replace_key, $matches['value'], $content);
+            $value = $matches['value'];
         }
+        $content = str_replace($replace_key, $value, $content);
     }
 }
 
