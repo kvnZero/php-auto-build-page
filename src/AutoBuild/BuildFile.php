@@ -78,7 +78,8 @@ class BuildFile
                 $arr = explode(' ', $matches['key'][$i]);
                 if(in_array($arr[0], array_keys(self::$common_search_key))){
                     $key = $arr[0];
-                    self::$common_search_key[$key]($key, $matches[0][$i], $this->file_content, $arr[1]);
+                    unset($arr[0]);
+                    self::$common_search_key[$key]($key, $matches[0][$i], $this->file_content, join(' ', $arr));
                 }
             }
         }
