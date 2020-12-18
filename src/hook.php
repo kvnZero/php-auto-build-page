@@ -23,7 +23,7 @@ class RegisterKey
 
     public static function action_if($replace_key, &$content, $value){
         $rule = "/(?<fliter>[a-z_= 1-9]+) then ?(?<value>.+)/";
-        preg_match($rule, "page == 1 then hello我", $matches);
+        preg_match($rule, $value, $matches);
         $filter_str = "return {$matches['fliter']};";
         if(eval($filter_str)){
             $content = str_replace($replace_key, $matches['value'], $content);
