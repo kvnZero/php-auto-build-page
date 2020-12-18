@@ -74,7 +74,7 @@ class BuildFile
         do{
             $rule = "/{% ?(?<key>[a-z_]+ .+?) ?%}/";
             preg_match_all($rule, $this->file_content, $matches);
-            if(empty($matches)) break;;
+            if(empty($matches['key'])) break;;
             for ($i=0; $i < count($matches[0]); $i++) { 
                 $arr = explode(' ', $matches['key'][$i]);
                 if(in_array($arr[0], array_keys(self::$common_search_key))){
