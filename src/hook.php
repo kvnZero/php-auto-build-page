@@ -20,6 +20,14 @@ class RegisterKey
             $content = str_replace($replace_key, $file_content, $content);
         }
     }
+
+    public static function action_if($replace_key, &$content, $value){
+        $arr = explode(' ', $value);
+        $filter_str = "return {$arr[0]}";
+        if(eval($filter_str)){
+            $content = str_replace($replace_key, $arr[2], $content);
+        }
+    }
 }
 
 
