@@ -1,6 +1,6 @@
 <div class="container marketing">
     <div class="row">
-        <div class="col-md-6 offset-md-3" style="margin-left: 0px; flex: unset; max-width: unset;">
+        <div class="col-md-6 offset-md-3"{% if !empty(CURRENT_POST) then style="margin-left: 0px; flex: unset; max-width: unset;" %}>
             <ul>
                 <li>Github：<a href="https://github.com/sohyunQVQ">SohyunQVQ</a></li>
             </ul>
