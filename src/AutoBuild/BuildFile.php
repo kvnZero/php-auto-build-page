@@ -71,9 +71,10 @@ class BuildFile
      */
     private function replaceFileCommonContent()
     {
-        $rule = "/{% ?(?<key>[a-z_]+ .+?) ?%}/";
-        preg_match_all($rule, $this->file_content, $matches);
-        if($matches){
+        do{
+            $rule = "/{% ?(?<key>[a-z_]+ .+?) ?%}/";
+            preg_match_all($rule, $this->file_content, $matches);
+            if(empty($matches)) break;;
             for ($i=0; $i < count($matches[0]); $i++) { 
                 $arr = explode(' ', $matches['key'][$i]);
                 if(in_array($arr[0], array_keys(self::$common_search_key))){
@@ -82,7 +83,7 @@ class BuildFile
                     self::$common_search_key[$key]($key, $matches[0][$i], $this->file_content, join(' ', $arr));
                 }
             }
-        }
+        } while (true);
     }
 
     private function replaceFileContent()
