@@ -20,6 +20,17 @@ class RegisterKey
             $content = str_replace($replace_key, $file_content, $content);
         }
     }
+
+    public static function action_if($replace_key, &$content, $value){
+        $rule = "/(?<fliter>.+) then ?(?<value>.+)/";
+        preg_match($rule, $value, $matches);
+        $filter_str = "return {$matches['fliter']};";
+        $value = '';
+        if(eval($filter_str)){
+            $value = $matches['value'];
+        }
+        $content = str_replace($replace_key, $value, $content);
+    }
 }
 
 
