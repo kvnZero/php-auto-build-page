@@ -7,7 +7,7 @@ use Redis;
 class RedisCache extends BaseCache{
     private static $instance;
 
-    private static $cache_key = 'blog:filesystem:cache:filename'; //自定义
+    private static $cache_key = 'blog:filesystem:cache:'; //自定义
 
     private function __construct(){}
 
@@ -20,11 +20,13 @@ class RedisCache extends BaseCache{
         return self::$instance;
     }
 
-    public static function get_cache($post_tile){
-        self::get_instance()->hget(self::$cache_key, $post_tile);
+    public static function get_cache($post_title){
+        $post_title = basename($post_title, '.php');
+        return self::get_instance()->get(self::$cache_key.$post_title) ?: 0;
     }
 
     public static function set_cache($post_title, $value){
-        self::get_instance()->hSet(self::$cache_key, $post_title, $value);
+        $post_title = basename($post_title, '.php');
+        self::get_instance()->setEx(self::$cache_key.$post_title, self::get_cache_expires_time(), $value);
     }
 }

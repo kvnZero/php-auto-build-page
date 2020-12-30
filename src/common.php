@@ -63,6 +63,7 @@ function find_post_head_and_clear(&$content){
 function get_cache_system(){
     switch (CACHE_SYSTEM) {
         case 'Redis':
+            if(!class_exists('Redis')) return FileCache::class;
             return RedisCache::class;
             break;
         case 'File':
