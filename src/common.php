@@ -3,7 +3,7 @@ use AutoBuild\RedisCache;
 use AutoBuild\FileCache;
 
 function param($name){
-    return htmlspecialchars($_REQUEST[$name]?? ''); 
+    return htmlspecialchars($_REQUEST[$name]?? '');
 }
 
 function static_file_list(){
@@ -18,6 +18,20 @@ function static_file_list(){
 
 function static_page_exists($filename){
     return in_array($filename, static_file_list());
+}
+
+function loadControllerFiles(){
+    $handler = opendir(BASE_DIR . '/Controller/');
+    $files   = [];
+    while (($filename = readdir($handler)) !== false){
+        if($filename == '.' || $filename == '..') continue;
+        $files[] = BASE_DIR . '/Controller/' . pathinfo($filename, PATHINFO_FILENAME) . '.php';
+    }
+    closedir($handler);
+    sort($files);
+    foreach ($files as $file){
+        include $file;
+    }
 }
 
 function post_file_list(){

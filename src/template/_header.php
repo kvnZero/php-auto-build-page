@@ -9,7 +9,7 @@
             <a class="nav-link" href="/">主页 <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">工具</a>
+            <a class="nav-link" href="/?page=tool">工具</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Github</a>
