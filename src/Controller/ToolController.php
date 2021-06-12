@@ -5,7 +5,8 @@ class ToolController extends AbsController
 {
     public function index(){
         $list = [
-            '理智消费' => "https://github.com/kvnZero/flutter_consume"
+            '理智消费' => "https://github.com/kvnZero/flutter_consume",
+            'GithubPage显示听歌记录' => 'https://github.com/kvnZero/netease-music-show'
         ];
 
         $list_html = '';
