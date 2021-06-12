@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3"{% if !empty(CURRENT_POST) then style="margin-left: 0px; flex: unset; max-width: unset;" %}>
             <ul>
-                <li>Github：<a href="https://github.com/sohyunQVQ">SohyunQVQ</a></li>
+                <li>Github：<a href="https://github.com/kvnZero">kvnZero</a></li>
             </ul>
             <hr>
             <div>
