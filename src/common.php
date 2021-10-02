@@ -35,13 +35,31 @@ function loadControllerFiles(){
 }
 
 function post_file_list(){
+    $posts = [];
     $handler = opendir(POST_PATH);
     while (($filename = readdir($handler)) !== false){
         if($filename == '.' || $filename == '..') continue;
-        $files[] = pathinfo($filename, PATHINFO_FILENAME);
+        if (strtolower(pathinfo($filename, PATHINFO_EXTENSION) ) != 'md') continue;
+
+        $full_filename = POST_PATH . $filename;
+
+        $file_fd = fopen($full_filename, "r") or die('Unable to open file');
+        $content = fread($file_fd, filesize($full_filename));
+        fclose($file_fd);
+        $post_info = find_post_head_and_clear($content);
+        
+        if(empty($post_info)) continue;
+
+        $posts[] = [
+            'filename' => pathinfo($filename, PATHINFO_FILENAME),
+            'filepath' => $full_filename,
+            'filetime' => strtotime($post_info['post_date'] ?? fileatime($full_filename)),
+        ];
     }
     closedir($handler);
-    return $files;
+    array_multisort(array_column($posts, 'filetime'), SORT_DESC, $posts);
+    
+    return array_column($posts, 'filename');
 }
 
 function find_post_head_and_clear(&$content){
