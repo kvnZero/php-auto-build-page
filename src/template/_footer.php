@@ -6,7 +6,7 @@
             </ul>
             <hr>
             <div>
-                Copyright © 2021 Abigeater😊 <a href="http://www.beian.miit.gov.cn">粤ICP备19021677号</a>
+                Copyright © 2021 Abigeater😊 <a href="http://beian.miit.gov.cn">粤ICP备19021677号</a>
             </div>
         </div>
     </div>
