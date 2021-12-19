@@ -15,7 +15,7 @@ class ControllerManger
 
     public static function __callStatic($name, $arguments)
     {
-        $include_file = OUTPUT_PATH . md5( get_class(self::$instance) . $name). '.php';
+        $include_file = OUTPUT_PATH . md5( get_class(self::$instance) . $name . $arguments[0]). '.php';
 
         if(self::hasCache($include_file)){
             return $include_file;

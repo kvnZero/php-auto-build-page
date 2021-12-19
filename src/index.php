@@ -29,6 +29,6 @@ if(empty(CURRENT_PAGE)) {
 
 ControllerManger::setClass($controller_class);
 
-$include_file = ControllerManger::$controller_method();
+$include_file = ControllerManger::$controller_method($_SERVER['QUERY_STRING']);
 
 include $include_file;
